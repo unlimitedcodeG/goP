@@ -19,6 +19,6 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 	go doTask(ctx)
-
+	c()
 	time.Sleep(4 * time.Second)
 }
