@@ -1,0 +1,12 @@
+# // Copyright 2022 Innkeeper Belm(孔令飞) <nosbelm@qq.com>. All rights reserved.
+# // Use of this source code is governed by a MIT style
+# // license that can be found in the LICENSE file. The original repo for
+# // this file is https://github.com/marmotedu/miniblog.
+openapi: "1.0.0"
+swagger: "2.0"
+servers:
+  - url: http://127.0.0.1:8080/v1
+    description: development server
+info:
+  version: "1.0.0"
+  title: miniblog api definition
