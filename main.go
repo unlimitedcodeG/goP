@@ -1,15 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	var i1 = 5
+	str := "The quick brown fox jumps over the lazy dog"
+	sl := strings.Fields(str)
 
-	fmt.Printf("An integer: %d, its location in memory: %p\n", i1, &i1)
-	var intP *int = &i1
-	fmt.Printf("The value at memory location %p is %d\n", intP, *intP)
+	fmt.Printf("Splitted in slice : %v\n", sl)
 
-	if *(intP) == 5 {
-		fmt.Println("The value is 5")
+	for _, val :=range sl {
+		fmt.Printf("%s - ", val)
 	}
 }
