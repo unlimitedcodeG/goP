@@ -1,12 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"os"
+	"runtime"
 )
 
 var Pi float64
+var prompt = "Enter a digit, e.g. 3 " + "or %s to quit."
 
+func init() {
+	if runtime.GOOS == "windows" {
+		prompt = fmt.Sprintf(prompt, "Ctrl+Z, Enter")
+	} else { //Unix-like
+		prompt = fmt.Sprintf(prompt, "Ctrl+D")
+	}
+}
 func trim(s string) string {
 	if len(s) == 0 {
 		return s
@@ -65,4 +75,5 @@ func main() {
 	print(GOROOT)
 	f1()
 	PtrMain()
+	BoolElse()
 }
