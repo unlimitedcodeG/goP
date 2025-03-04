@@ -64,4 +64,5 @@ func main() {
 	print("hhhh\n")
 	print(GOROOT)
 	f1()
+	PtrMain()
 }
