@@ -19,18 +19,26 @@ func trim(s string) string {
 	return s[left : right+1]
 }
 
-var a = "G"
+var a string
 
-func n() { print(a) }
+// func n() { print(a) }
 
-func m() {
+func f1() {
 	a := "O"
 	print(a)
-	n()
+	f2()
 }
 
+func f2() { print(a) }
+
+// func m() {
+// 	a := "G"
+// 	print(a)
+// 	n()
+// }
+
 func main() {
-	n()
-	m()
-	n()
+	a := "G"
+	print(a)
+	f1()
 }
