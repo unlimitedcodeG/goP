@@ -1,5 +1,7 @@
 package main
 
+import "os"
+
 func trim(s string) string {
 	if len(s) == 0 {
 		return s
@@ -31,14 +33,24 @@ func f1() {
 
 func f2() { print(a) }
 
-// func m() {
-// 	a := "G"
-// 	print(a)
-// 	n()
-// }
+//	func m() {
+//		a := "G"
+//		print(a)
+//		n()
+//	}
+var (
+	HOME   = os.Getenv("HOME")
+	USER   = os.Getenv("USER")
+	GOROOT = os.Getenv("GOROOT")
+)
 
 func main() {
 	a := "G"
 	print(a)
+	print(HOME)
+	print("hhhh\n")
+	print(USER)
+	print("hhhh\n")
+	print(GOROOT)
 	f1()
 }
