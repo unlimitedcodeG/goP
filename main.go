@@ -1,16 +1,13 @@
 package main
 
-import "fmt"
-
-func DeferFunc(i int) (t int) {
-
-	fmt.Println("t = ", t)
-
-	return 2
+func DeferFunc2(i int) int {
+	t := i
+	defer func() {
+		t += 3
+	}()
+	return t
 }
 
 func main() {
-	DeferFunc(10)
-	var a = DeferFunc(10)
-	print(a)
+	println(DeferFunc2(1))
 }
