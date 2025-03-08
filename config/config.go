@@ -29,7 +29,7 @@ func InitConfig() {
 	viper.AddConfigPath("./config")
 
 	if err := viper.ReadInConfig(); err != nil {
-		log.Fatal("Error reading config file: %v", err)
+		log.Fatalf("Error reading config file: %v", err)
 	}
 
 	AppConfig = &Config{}
