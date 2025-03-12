@@ -11,13 +11,11 @@ type Config struct {
 		Name string
 		Port string
 	}
-
 	Database struct {
 		Dsn          string
 		MaxIdleConns int
 		MaxOpenConns int
 	}
-
 	Redis struct {
 		Addr     string
 		DB       int
