@@ -19,9 +19,9 @@ type Config struct {
 	}
 
 	Redis struct {
-		Addr    string
-		DB      int
-		Pssword string
+		Addr     string
+		DB       int
+		Password string
 	}
 }
 
