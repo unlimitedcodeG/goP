@@ -13,11 +13,15 @@ type Config struct {
 	}
 
 	Database struct {
-		Host     string
-		Port     string
-		User     string
-		Password string
-		Name     string
+		Dsn          string
+		MaxIdleConns int
+		MaxOpenConns int
+	}
+
+	Redis struct {
+		Addr    string
+		DB      int
+		Pssword string
 	}
 }
 
