@@ -9,7 +9,7 @@ func address() {
 
 	c := *b
 
-	fmt.Print("%T %[1]v\n", c)
+	fmt.Printf("%T %[1]v\n", c)
 	fmt.Println(a == c, &a, &c)
 
 	var p1 *int // save int type value memory address in nil is very danger
