@@ -1,28 +1,16 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
-
-type Circle struct {
-	radius float64
-}
-
-func (c Circle) Area() float64 {
-	return math.Pi * c.radius * c.radius
-}
-
-func (c *Circle) AreaPointer() float64 {
-	return math.Pi * c.radius * c.radius
-}
+import "fmt"
 
 func main() {
-	var c Circle
-	c.radius = 10.00
+	var n [10]int
+	var i, j int
 
-	// 调用圆形的Area方法
-	fmt.Println("Area of circle:", c.Area())
-	// 调用圆形的AreaPointer方法
-	fmt.Println("Area of circle (pointer):", c.AreaPointer())
+	for i = 0; i < 10; i++ {
+		n[i] = i + 100
+	}
+
+	for j = 0; j < 10; j++ {
+		fmt.Printf("e[%d]\n", n[j])
+	}
 }
