@@ -7,11 +7,27 @@ type Circle struct {
 }
 
 func main() {
-	var c1 Circle
-	c1.radius = 10.00
-	fmt.Printf("circle area =%v", c1.getArea())
+	var c Circle
+	fmt.Println(c.radius)
+	c.radius = 30
+	fmt.Println(c.getArea())
+	c.changeRadius(20)
+	fmt.Println(c.radius)
+	change(&c, 30)
+	fmt.Println(c.radius)
+
 }
 
 func (c Circle) getArea() float64 {
-	return 3.14 * c.radius * c.radius
+	return c.radius * c.radius
+}
+
+// 注意如果想要更改成功c的值，这里需要传指针
+func (c *Circle) changeRadius(radius float64) {
+	c.radius = radius
+}
+
+// 引用类型要想改变值需要传指针
+func change(c *Circle, radius float64) {
+	c.radius = radius
 }
