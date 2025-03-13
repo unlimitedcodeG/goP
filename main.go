@@ -2,20 +2,22 @@ package main
 
 import "fmt"
 
-// declare type func
-
-type cb func(int) int
+func getSequence() func() int {
+	i := 0
+	return func() int {
+		i += 1
+		return i
+	}
+}
 
 func main() {
-	testCallBack(1, callBack) // testCallBack
+	nextNumber := getSequence()
 
-}
+	fmt.Println(nextNumber())
+	fmt.Println(nextNumber())
+	fmt.Println(nextNumber())
 
-func testCallBack(x int, f cb) {
-	f(x)
-}
-
-func callBack(x int) int {
-	fmt.Printf("I am callback x:%d", x)
-	return x
+	nextNumber1 := getSequence()
+	fmt.Println(nextNumber1())
+	fmt.Println(nextNumber1())
 }
