@@ -1,41 +1,28 @@
 package main
 
-import (
-	"fmt"
+import "fmt"
+
+var (
+	myRes = func(a int, b int) int {
+		return a - b
+	}
 )
 
 func main() {
-
-	/// 定义匿名函数
-	add := func(a, b int) int {
+	res1 := func(a int, b int) int {
 		return a + b
+	}(10, 25)
+
+	fmt.Printf("res1=%d\n", res1)
+
+	// 匿名函数 付给变量用变量来调用  可多次调用 可是作用地域有限
+
+	res2 := func(a int, b int) int {
+		return a * b
 	}
-	// 调用匿名函数
-	result := add(3, 5)
-	fmt.Println("3+5=", result)
+	res3 := res2(10, 25)
+	fmt.Printf("res3=%d\n", res3)
 
-	// 在函数内部使用匿名函数
-	multiply := func(x, y int) int {
-		return x * y
-	}
-
-	product := multiply(4, 6)
-
-	fmt.Println("4*6=", product)
-	// 将匿名函数作为参数传递给其他函数
-
-	calculate := func(operation func(int, int) int, x, y int) int {
-		return operation(x, y)
-	}
-
-	sum := calculate(add, 2, 8)
-
-	fmt.Println("2+8=", sum)
-
-	// 也可以直接在函数调用中定义匿名函数
-	difference := calculate(func(a, b int) int {
-		return a - b
-	}, 10, 4)
-	fmt.Println("10-4=", difference)
-
+	res4 := myRes(10, 25)
+	fmt.Printf("res4=%d\n", res4)
 }
