@@ -2,27 +2,10 @@ package main
 
 import "fmt"
 
+var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
 func main() {
-	var numbers []int
-
-	numbers = append(numbers, 0)
-
-	printSlice(numbers)
-
-	numbers = append(numbers, 1)
-
-	printSlice(numbers)
-
-	numbers = append(numbers, 2, 3, 4)
-	printSlice(numbers)
-
-	numbers1 := make([]int, len(numbers), (cap(numbers))*2)
-
-	copy(numbers1, numbers)
-
-	printSlice(numbers1)
-}
-
-func printSlice(x []int) {
-	fmt.Printf("len=%d cap=%d slice=%v\n", len(x), cap(x), x)
+	for i, v := range pow {
+		fmt.Printf("2**%d =%d\n", i, v)
+	}
 }
