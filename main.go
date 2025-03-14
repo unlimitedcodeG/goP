@@ -5,25 +5,22 @@ import "fmt"
 // var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
 
 func main() {
-	m := map[string]int{
-		"apple":  1,
-		"banana": 2,
-		"orange": 3,
+	countryCapitalMap := map[string]string{
+		"France": "Paris",
+		"Italy":  "Rome",
+		"Japan":  "Tokyo",
+		"India":  "New delhi",
 	}
+	fmt.Println("origin map")
 
-	fmt.Println(m)
+	for country := range countryCapitalMap {
+		fmt.Println(country, "首都是", countryCapitalMap[country])
 
-	v1 := m["apple"]
-	v2, ok := m["pear"]
+		delete(countryCapitalMap, "France")
+		fmt.Println("delete France")
 
-	m["apple"] = 5
-
-	println(v1)
-	println(v2)
-	println(ok)
-	print(m["apple"])
-
-	for k, v := range m {
-		fmt.Printf("key=%s,value=%d\n", k, v)
+		for country := range countryCapitalMap {
+			fmt.Println(country, "首都是", countryCapitalMap[country])
+		}
 	}
 }
