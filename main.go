@@ -14,7 +14,6 @@ func main() {
 	default:
 		fmt.Println("ch 已经满了 跳过发送 3 ")
 	}
-	ch <- 3
 	close(ch)
 
 	for v := range ch {
