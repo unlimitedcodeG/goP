@@ -2,8 +2,10 @@ package main
 
 import "fmt"
 
+func swap(x, y string) (string, string) {
+	return y, x
+}
 func main() {
-	var a int = 10
-
-	fmt.Printf("变量的地址: %x\n", &a)
+	a, b := swap("hello", "world")
+	fmt.Printf(a, b)
 }
