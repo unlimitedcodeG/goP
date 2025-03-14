@@ -21,4 +21,9 @@ func main() {
 	println(v1)
 	println(v2)
 	println(ok)
+	print(m["apple"])
+
+	for k, v := range m {
+		fmt.Printf("key=%s,value=%d\n", k, v)
+	}
 }
