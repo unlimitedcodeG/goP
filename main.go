@@ -5,27 +5,20 @@ import "fmt"
 // var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
 
 func main() {
-	nums := []int{2, 3, 4}
-	sum := 0
-
-	for _, num := range nums {
-		sum += num
-	}
-	fmt.Println("sum:", sum)
-
-	for i, num := range nums {
-		if num == 3 {
-			fmt.Println("index:", i)
-		}
+	m := map[string]int{
+		"apple":  1,
+		"banana": 2,
+		"orange": 3,
 	}
 
-	kvs := map[string]string{"a": "apple", "b": "banana"}
+	fmt.Println(m)
 
-	for k, v := range kvs {
-		fmt.Printf("%s ->%s\n", k, v)
-	}
+	v1 := m["apple"]
+	v2, ok := m["pear"]
 
-	for i, c := range "Go" {
-		fmt.Println(i, c)
-	}
+	m["apple"] = 5
+
+	println(v1)
+	println(v2)
+	println(ok)
 }
