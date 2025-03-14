@@ -1,18 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
+
+const s string = "constant"
 
 func main() {
-	var a = "initial"
-	fmt.Println(a)
+	fmt.Println(s)
 
-	var b, c int = 1, 2
+	const n = 500000000
+	const d = 3e20 / n
 
-	fmt.Println(b, c)
-
-	var d = true
 	fmt.Println(d)
 
-	f := "apple"
-	fmt.Print(f)
+	fmt.Println(math.Sin(n))
 }
