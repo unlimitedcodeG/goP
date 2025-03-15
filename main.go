@@ -2,18 +2,28 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
-const s string = "constant"
-
 func main() {
-	fmt.Println(s)
+	i := 3
+	for i < 3 {
+		fmt.Println(i)
+		i = i + 1
+	}
 
-	const n = 500000000
-	const d = 3e20 / n
+	for j := 0; j < 3; j++ {
+		fmt.Println("range", j)
+	}
 
-	fmt.Println(d)
-	fmt.Println(int64(d))
-	fmt.Println(math.Sin(n))
+	for {
+		fmt.Println("loop")
+		break
+	}
+
+	for n := range 6 {
+		if n%2 == 0 {
+			continue
+		}
+		fmt.Print(n)
+	}
 }
