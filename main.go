@@ -2,59 +2,40 @@ package main
 
 import (
 	"fmt"
-	"slices"
+	"maps"
 )
 
 func main() {
 
-	var s []string
+	m := make(map[string]int)
 
-	fmt.Println("uninit:", s, s == nil, len(s) == 0)
-	s = make([]string, 3)
+	m["k1"] = 7
+	m["k2"] = 13
 
-	fmt.Println("emp:", s, "len:", "cap", cap(s))
+	fmt.Println("map:", m)
 
-	s[0] = "a"
-	s[1] = "b"
-	s[2] = "c"
+	v1 := m["k1"]
+	fmt.Println("v1:", v1)
 
-	fmt.Println("set:", s)
-	fmt.Println("get:", s[2])
+	v3 := m["k3"]
+	fmt.Println("v3:", v3)
 
-	fmt.Println("len: ", len(s))
-	// s = make([]string, 3)
-	s = append(s, "d")
-	s = append(s, "e", "f")
-	fmt.Println("apd:", s)
+	fmt.Println("len:", len(m))
 
-	c := make([]string, len(s))
-	copy(c, s)
+	delete(m, "k2")
+	fmt.Println("map:", m)
 
-	fmt.Println("cpy", c)
-	l := s[2:5]
-	fmt.Println("sl1:", l)
+	clear(m)
+	fmt.Println("map:", m)
 
-	l = s[:5]
-	fmt.Println("sl2:", l)
-	l = s[2:]
-	fmt.Println("sl3:", l)
+	_, prs := m["k2"]
+	fmt.Println("prs:", prs)
 
-	t := []string{"g", "h", "i"}
-	fmt.Println("dcl:", t)
+	n := map[string]int{"foo": 1, "bar": 2}
+	fmt.Println("map:", n)
 
-	t2 := []string{"g", "h", "i"}
-
-	if slices.Equal(t, t2) {
-		fmt.Println("t == t2")
+	n2 := map[string]int{"foo": 1, "bar": 2}
+	if maps.Equal(n, n2) {
+		fmt.Println("n == n2")
 	}
-	twoD := make([][]int, 3)
-	for i := 0; i < 3; i++ {
-		innerLen := i + 1
-		twoD[i] = make([]int, innerLen)
-		for j := 0; j < innerLen; j++ {
-			twoD[i][j] = i + j
-		}
-	}
-
-	fmt.Println("2d: ", twoD)
 }
