@@ -20,5 +20,7 @@ func main() {
 
 	fmt.Println("len: ", len(s))
 	// s = make([]string, 3)
-
+	s = append(s, "d")
+	s = append(s, "e", "f")
+	fmt.Println("apd:", s)
 }
