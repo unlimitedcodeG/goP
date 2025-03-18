@@ -2,44 +2,38 @@ package main
 
 import "fmt"
 
-type ServerState int
-
-const (
-    StateIdle ServerState = iota
-    StateConnected
-    StateError
-    StateRetrying
-)
-
-var stateName = map[ServerState]string{
-    StateIdle:      "idle",
-    StateConnected: "connected",
-    StateError:     "error",
-    StateRetrying:  "retrying",
+type base struct {
+	num int
 }
 
-func (ss ServerState) String() string {
-    return stateName[ss]
+func (b base) describe() string {
+	return fmt.Sprintf("base with num= %v", b.num)
+}
+
+type container struct {
+	base
+	str string
 }
 
 func main() {
-    ns := transition(StateIdle)
-    fmt.Println(ns)
+	co := container{
+		base: base{
+			num: 1,
+		},
+		str: "some name",
+	}
 
-    ns2 := transition(ns)
-    fmt.Println(ns2)
-}
+	fmt.Printf("co={num:%v},str:%v\n", co.num, co.str)
+	fmt.Println("also num:", co.base.num)
 
-func transition(s ServerState) ServerState {
-    switch s {
-    case StateIdle:
-        return StateConnected
-    case StateConnected, StateRetrying:
+	fmt.Println("describe:", co.describe())
 
-        return StateIdle
-    case StateError:
-        return StateError
-    default:
-        panic(fmt.Errorf("unknown state: %s", s))
-    }
+	type describer interface {
+		describe() string
+	}
+
+	var d describer = co
+	fmt.Println("describer:", d.describe())
+	fmt.Println("describe:", co.base.describe())
+
 }
