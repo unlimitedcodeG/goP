@@ -49,6 +49,7 @@ func genFib() iter.Seq[int] {
 	}
 }
 
+// 无缓冲通道更好同步  一般非常明确的理由才能使用有缓存的通道
 func main() {
 	lst := List[int]{}
 	lst.Push(10)
