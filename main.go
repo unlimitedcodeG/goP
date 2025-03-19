@@ -1,16 +1,55 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
-// 这里 ch 是一个缓冲通道，容量为 3。即使没有接收者，前 3 次 ch <- 依然可以执行，不会阻塞，直到缓冲区满后才会阻塞。
+func f(arg int) (int, error) {
+	if arg == 42 {
+
+		return -1, errors.New("can't work with 42")
+	}
+
+	return arg + 3, nil
+}
+
+var ErrOutOfTea = fmt.Errorf("no more tea available")
+var ErrPower = fmt.Errorf("can't boil water")
+
+func makeTea(arg int) error {
+	if arg == 2 {
+		return ErrOutOfTea
+	} else if arg == 4 {
+
+		return fmt.Errorf("making tea: %w", ErrPower)
+	}
+	return nil
+}
+
 func main() {
-	ch := make(chan int, 3) // 创建一个带 3 个容量的通道
+	for _, i := range []int{7, 42} {
 
-	ch <- 1
-	ch <- 2
-	ch <- 3
+		if r, e := f(i); e != nil {
+			fmt.Println("f failed:", e)
+		} else {
+			fmt.Println("f worked:", r)
+		}
+	}
 
-	fmt.Println(<-ch) // 读取第一个元素
-	fmt.Println(<-ch) // 读取第二个元素
-	fmt.Println(<-ch) // 读取第三个元素
+	for i := range 5 {
+		if err := makeTea(i); err != nil {
+
+			if errors.Is(err, ErrOutOfTea) {
+				fmt.Println("We should buy new tea!")
+			} else if errors.Is(err, ErrPower) {
+				fmt.Println("Now it is dark.")
+			} else {
+				fmt.Printf("unknown error: %s\n", err)
+			}
+			continue
+		}
+
+		fmt.Println("Tea is ready!")
+	}
 }
