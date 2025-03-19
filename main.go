@@ -1,73 +1,16 @@
 package main
 
-import (
-	"fmt"
-	"iter"
-	"slices"
-)
+import "fmt"
 
-type List[T any] struct {
-	head, tail *element[T]
-}
-
-type element[T any] struct {
-	next *element[T]
-	val  T
-}
-
-func (lst *List[T]) Push(v T) {
-	if lst.tail == nil {
-		lst.head = &element[T]{val: v}
-		lst.tail = lst.head
-	} else {
-		lst.tail.next = &element[T]{val: v}
-		lst.tail = lst.tail.next
-	}
-}
-
-func (lst *List[T]) All() iter.Seq[T] {
-	return func(yield func(T) bool) {
-
-		for e := lst.head; e != nil; e = e.next {
-			if !yield(e.val) {
-				return
-			}
-		}
-	}
-}
-
-func genFib() iter.Seq[int] {
-	return func(yield func(int) bool) {
-		a, b := 1, 1
-
-		for {
-			if !yield(a) {
-				return
-			}
-			a, b = b, a+b
-		}
-	}
-}
-
-// 无缓冲通道更好同步  一般非常明确的理由才能使用有缓存的通道
+// 这里 ch 是一个缓冲通道，容量为 3。即使没有接收者，前 3 次 ch <- 依然可以执行，不会阻塞，直到缓冲区满后才会阻塞。
 func main() {
-	lst := List[int]{}
-	lst.Push(10)
-	lst.Push(13)
-	lst.Push(23)
+	ch := make(chan int, 3) // 创建一个带 3 个容量的通道
 
-	for e := range lst.All() {
-		fmt.Println(e)
-	}
+	ch <- 1
+	ch <- 2
+	ch <- 3
 
-	all := slices.Collect(lst.All())
-	fmt.Println("all:", all)
-
-	for n := range genFib() {
-
-		if n >= 10 {
-			break
-		}
-		fmt.Println(n)
-	}
+	fmt.Println(<-ch) // 读取第一个元素
+	fmt.Println(<-ch) // 读取第二个元素
+	fmt.Println(<-ch) // 读取第三个元素
 }
