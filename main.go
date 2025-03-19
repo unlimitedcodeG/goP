@@ -2,38 +2,52 @@ package main
 
 import "fmt"
 
-type base struct {
-	num int
+func SlicesIndex[S ~[]E, E comparable](s S, v E) int {
+	for i := range s {
+		if v == s[i] {
+			return i
+		}
+	}
+	return -1
 }
 
-func (b base) describe() string {
-	return fmt.Sprintf("base with num= %v", b.num)
+type List[T any] struct {
+	head, tail *element[T]
 }
 
-type container struct {
-	base
-	str string
+type element[T any] struct {
+	next *element[T]
+	val  T
+}
+
+func (lst *List[T]) Push(v T) {
+	if lst.tail == nil {
+		lst.head = &element[T]{val: v}
+		lst.tail = lst.head
+	} else {
+		lst.tail.next = &element[T]{val: v}
+		lst.tail = lst.tail.next
+	}
+}
+
+func (lst *List[T]) AllElements() []T {
+	var elems []T
+	for e := lst.head; e != nil; e = e.next {
+		elems = append(elems, e.val)
+	}
+	return elems
 }
 
 func main() {
-	co := container{
-		base: base{
-			num: 1,
-		},
-		str: "some name",
-	}
+	var s = []string{"foo", "bar", "zoo"}
 
-	fmt.Printf("co={num:%v},str:%v\n", co.num, co.str)
-	fmt.Println("also num:", co.base.num)
+	fmt.Println("index of zoo:", SlicesIndex(s, "zoo"))
 
-	fmt.Println("describe:", co.describe())
+	_ = SlicesIndex[[]string, string](s, "zoo")
 
-	type describer interface {
-		describe() string
-	}
-
-	var d describer = co
-	fmt.Println("describer:", d.describe())
-	fmt.Println("describe:", co.base.describe())
-
+	lst := List[int]{}
+	lst.Push(10)
+	lst.Push(13)
+	lst.Push(23)
+	fmt.Println("list:", lst.AllElements())
 }
