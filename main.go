@@ -2,30 +2,41 @@ package main
 
 import "fmt"
 
-type Hero struct {
-	Name  string
-	Ad    int
-	Level int
-}
-// 如果说类的属性首字母大写，表示该属性是对外能够访问的，否则的话 只能够🥱类内部访问
-func (this Hero) show() {
-	fmt.Println("Name =", this.Name)
-	fmt.Println("Ad =", this.Ad)
-	fmt.Println("Level =", this.Level)
+type Human struct {
+	name string
+	sex  string
 }
 
-func (this Hero) GetName() string {
-	return this.Name
+func (this *Human) Eat() {
+	fmt.Println("Human.Eat()")
 }
 
-func (this Hero) SetName(newName string) {
-	this.Name = newName
-	// return newName
+func (this *Human) Walk() {
+	fmt.Println("Human.Walk()")
 }
 
+type SuperMan struct {
+	Human
+	level int
+}
+
+func (this *SuperMan) Eat() {
+	fmt.Println("SuperMan eat ")
+}
+
+func (this *SuperMan) Fly() {
+	fmt.Println("SuperMan.Fly()...")
+}
 func main() {
-	hero := Hero{Name: "zhang3", Ad: 100, Level: 1}
+	h := Human{"zhang3", "female"}
 
-	hero.SetName("lisi")
-	hero.show()
+	fmt.Println(h)
+
+	sh := SuperMan{Human{"superman", "male"}, 1}
+
+	fmt.Println(sh)
+	sh.Eat()
+	h.Eat()
+	sh.Fly()
+	sh.Walk()
 }
