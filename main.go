@@ -1,42 +1,27 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
-type Human struct {
-	name string
-	sex  string
+type resume struct {
+	Name string `json:"name" doc:"My Name"`
 }
 
-func (this *Human) Eat() {
-	fmt.Println("Human.Eat()")
+func findDoc(stru interface{}) map[string]string {
+	t := reflect.TypeOf(stru).Elem()
+	doc := make(map[string]string)
+
+	for i := 0; i < t.NumField(); i++ {
+		doc[t.Field(i).Tag.Get("json")] = t.Field(i).Tag.Get("doc")
+	}
+	return doc
+
 }
 
-func (this *Human) Walk() {
-	fmt.Println("Human.Walk()")
-}
-
-type SuperMan struct {
-	Human
-	level int
-}
-
-func (this *SuperMan) Eat() {
-	fmt.Println("SuperMan eat ")
-}
-
-func (this *SuperMan) Fly() {
-	fmt.Println("SuperMan.Fly()...")
-}
 func main() {
-	h := Human{"zhang3", "female"}
-
-	fmt.Println(h)
-
-	sh := SuperMan{Human{"superman", "male"}, 1}
-
-	fmt.Println(sh)
-	sh.Eat()
-	h.Eat()
-	sh.Fly()
-	sh.Walk()
+	var stru resume
+	doc := findDoc(&stru)
+	fmt.Printf("name字段为：%s\n", doc["name"])
 }
