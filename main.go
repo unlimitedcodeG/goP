@@ -1,41 +1,30 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-	"time"
-)
+import "fmt"
 
-func worker(id int, jobs <-chan int, results chan<- int) {
-	for j := range jobs {
-		fmt.Println("worker", id, "started job", j)
-		time.Sleep(time.Second)
-		fmt.Println("worker", id, "finished job", j)
-		results <- j * 2
-	}
+type Hero struct {
+	Name  string
+	Ad    int
+	Level int
 }
+
+func (this Hero) show() {
+	fmt.Println("Name =", this.Name)
+	fmt.Println("Ad =", this.Ad)
+	fmt.Println("Level =", this.Level)
+}
+
+func (this Hero) GetName() string {
+	return this.Name
+}
+
+func (this Hero) SetName() (newName string) {
+	this.Name = newName
+	return newName
+}
+
 func main() {
+	hero := Hero{Name: "zhang3", Ad: 100, Level: 1}
 
-	const numJobs = 5
-	jobs := make(chan int, numJobs)
-	results := make(chan int, numJobs)
-
-	var wg sync.WaitGroup
-	for w := 1; w <= 3; w++ {
-		wg.Add(1)
-		go func(id int) {
-			defer wg.Done()
-			worker(id, jobs, results)
-		}(w)
-	}
-
-	for j := 1; j <= numJobs; j++ {
-		jobs <- j
-	}
-
-	close(jobs)
-
-	for a := 1; a <= numJobs; a++ {
-		<-results
-	}
+	hero.show()
 }
