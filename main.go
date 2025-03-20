@@ -3,26 +3,39 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
-func f(from string, wg *sync.WaitGroup) {
-	defer wg.Done() // 任务完成时减少计数
-	for i := 0; i < 3; i++ {
-		fmt.Println(from, ":", i)
+func worker(id int, jobs <-chan int, results chan<- int) {
+	for j := range jobs {
+		fmt.Println("worker", id, "started job", j)
+		time.Sleep(time.Second)
+		fmt.Println("worker", id, "finished job", j)
+		results <- j * 2
 	}
 }
-
 func main() {
+
+	const numJobs = 5
+	jobs := make(chan int, numJobs)
+	results := make(chan int, numJobs)
+
 	var wg sync.WaitGroup
+	for w := 1; w <= 3; w++ {
+		wg.Add(1)
+		go func(id int) {
+			defer wg.Done()
+			worker(id, jobs, results)
+		}(w)
+	}
 
-	wg.Add(2) // 等待两个 Goroutine 完成
+	for j := 1; j <= numJobs; j++ {
+		jobs <- j
+	}
 
-	go f("goroutine", &wg)
-	go func(msg string) {
-		fmt.Println(msg)
-		wg.Done()
-	}("going")
+	close(jobs)
 
-	wg.Wait() // 等待所有 Goroutine 结束
-	fmt.Println("done")
+	for a := 1; a <= numJobs; a++ {
+		<-results
+	}
 }
